@@ -5,12 +5,9 @@ import time
 execution = 1
 option = 0
 error = 0
-users = ["admin"]
-realnames = ["admin"]
-lastnames = ["admin"]
-dninumber = ["admin"]
-emails = ["business@ghostix.com.ar"]
-passwords = ["123456789"]
+users = [["admin","admin","admin","admin","business@ghostix.com.ar","1234567890"]]
+
+
 usercount = 0
 notesv = ["La cuenta del administrador del sistema."]
 
@@ -40,42 +37,40 @@ def mainMenu():
 
 
 def registerMenu():
+    os.system(command)
     print(colors.GREEN + "1 " + colors.RED + ") " + colors.reset + " Pantalla registración")
     global users
-    global realnames
-    global lastnames
-    global dninumber
-    global emails
-    global passwords
     global usercount
+    aux=[]
     error = 0
     print("╔═══════════════════════════════════════════════════╗")
     print("║                                                   ║")
     print("║                                                   ║")
     print("║   ", end="")
-    users.append(input("Nombre de usuario. " + colors.YELLOW))
-    for i in range(1, usercount):
-        if users[i] == users[usercount] and i != usercount:
+    aux.append(input("Nombre de usuario. " + colors.YELLOW))
+    for i in range(0, usercount+1):
+        if users[i][0] == aux[0] and i != usercount+1:
             error = 1
     if error == 0:
         print(colors.reset + "║   ", end="")
-        realnames.append(input("Nombre real. " + colors.YELLOW))
+        aux.append(input("Nombre real. " + colors.YELLOW))
         print(colors.reset + "║   ", end="")
-        lastnames.append(input("Apellido. " + colors.YELLOW))
+        aux.append(input("Apellido. " + colors.YELLOW))
         print(colors.reset + "║   ", end="")
-        dninumber.append(input("Número de DNI. " + colors.YELLOW))
+        aux.append(input("Número de DNI. " + colors.YELLOW))
         print(colors.reset + "║   ", end="")
-        for i in range(1, usercount):
-            if dninumber[i] == dninumber[usercount] and i != usercount:
+        for i in range(0, usercount+1):
+            if users[i][3] == aux[3] and i != usercount+1:
                 error = 1
         if error == 0:
-            emails.append(input("Email. " + colors.YELLOW))
+            aux.append(input("Email. " + colors.YELLOW))
             print(colors.reset + "║   ", end="")
-            for i in range(1, usercount):
-                if emails[i] == emails[usercount] and i != usercount:
+            for i in range(0, usercount+1):
+                if users[i][4] == aux[4] and i != usercount+1:
                     error = 1
             if error == 0:
-                passwords.append(input("Contraseña. " + colors.YELLOW))
+                aux.append(input("Contraseña. " + colors.YELLOW))
+                users.append(aux)
                 print(colors.reset + "║                                                   ║")
                 print("║                                                   ║")
                 print("║                                                   ║")
@@ -100,29 +95,29 @@ def registerMenu():
         registerMenu()
 
 
-def userlist(length, users, realnames, lastnames, dninumber):
+def userlist(length, users):
     print(colors.GREEN + "2 " + colors.RED + ") " + colors.reset)
     if length > 0:
         sizes = [0, 0, 0, 0]
         totalsize = 0
         if length > 1:
-            for i in range(1, length - 1):
-                if len(users[i]) < len(users[i + 1]):
-                    sizes[0] = i + 1
-            for i in range(1, length - 1):
-                if len(realnames[i]) < len(realnames[i + 1]):
-                    sizes[1] = i + 1
-            for i in range(1, length - 1):
-                if len(lastnames[i]) < len(lastnames[i + 1]):
-                    sizes[2] = i + 1
-            for i in range(1, length - 1):
-                if len(dninumber[i]) < len(dninumber[i + 1]):
-                    sizes[3] = i + 1
+            for i in range(0, length ):
+                if len(users[i][0]) < len(users[i + 1][0]):
+                    sizes[0] = len(users[i+1][0]) + len("usuario")
+            for i in range(0, length ):
+                if len(users[i][1]) < len(users[i + 1][1]):
+                    sizes[1] = len(users[i+1][1]) + len("nombre")
+            for i in range(0, length ):
+                if len(users[i][2]) < len(users[i + 1][2]):
+                    sizes[2] = len(users[i+1][2]) + len("apellido")
+            for i in range(0, length):
+                if len(users[i][3]) < len(users[i + 1][3]):
+                    sizes[3] = len(users[i+1][3]) + len("dni.")
         else:
-            sizes[0] = len(users[1]) + len("usuario")
-            sizes[1] = len(realnames[1]) + len("nombre")
-            sizes[2] = len(lastnames[1]) + len("apellido")
-            sizes[3] = len(dninumber[1]) + len("dni.")
+            sizes[0] = len(users[0][0]) + len("usuario")
+            sizes[1] = len(users[0][1]) + len("nombre")
+            sizes[2] = len(users[0][2]) + len("apellido")
+            sizes[3] = len(users[0][3]) + len("dni.")
         totalsize = sizes[0] + sizes[1] + sizes[2] + sizes[3] + 6
         print("╔", end="")
         for i in range(1, totalsize + 2):
@@ -158,40 +153,40 @@ def userlist(length, users, realnames, lastnames, dninumber):
             print(" ", end="")
         print(" ║")
         if length > 1:
-            for x in range(1, usercount):
-                print("║   ", end="")
-                print(users[x], end="")
-                for i in range(len(users[x]), sizes[0] - 1):
-                    print(" ", end="")
-                print(colors.BLUE + "| ", end=colors.reset)
-                print(realnames[x], end="")
-                for i in range(len(realnames[x]), sizes[1] - 1):
-                    print(" ", end="")
-                print(colors.BLUE + "| ", end=colors.reset)
-                print(lastnames[x], end="")
-                for i in range(len(lastnames[x]), sizes[2] - 1):
-                    print(" ", end="")
-                print(colors.BLUE + "| ", end=colors.reset)
-                print(colors.GREEN + dninumber[x], end=colors.reset)
-                for i in range(len(dninumber[x]), sizes[3] - 1):
-                    print(" ", end="")
-                print("  ║")
+            for x in range(1, usercount+1):
+                    print("║   ", end="")
+                    print(users[x][0], end="")
+                    for i in range(len(users[x][0]), sizes[0] - 1):
+                        print(" ", end="")
+                    print(colors.BLUE + "| ", end=colors.reset)
+                    print(users[x][1], end="")
+                    for i in range(len(users[x][1]), sizes[1] - 1):
+                        print(" ", end="")
+                    print(colors.BLUE + "| ", end=colors.reset)
+                    print(users[x][2], end="")
+                    for i in range(len(users[x][2]), sizes[2] - 1):
+                        print(" ", end="")
+                    print(colors.BLUE + "| ", end=colors.reset)
+                    print(colors.GREEN + users[x][3], end=colors.reset)
+                    for i in range(len(users[x][3]), sizes[3] - 1):
+                        print(" ", end="")
+                    print("  ║")
         else:
             print("║   ", end="")
-            print(users[1], end="")
-            for i in range(len(users[1]), sizes[0] - 1):
+            print(users[1][0], end="")
+            for i in range(len(users[1][0]), sizes[0] - 1):
                 print(" ", end="")
             print(colors.BLUE + "| ", end=colors.reset)
-            print(realnames[1], end="")
-            for i in range(len(realnames[1]), sizes[1] - 1):
+            print(users[1][1], end="")
+            for i in range(len(users[1][1]), sizes[1] - 1):
                 print(" ", end="")
             print(colors.BLUE + "| ", end=colors.reset)
-            print(lastnames[1], end="")
-            for i in range(len(lastnames[1]), sizes[2] - 1):
+            print(users[1][2], end="")
+            for i in range(len(users[1][2]), sizes[2] - 1):
                 print(" ", end="")
             print(colors.BLUE + "| ", end=colors.reset)
-            print(colors.GREEN + dninumber[1], end=colors.reset)
-            for i in range(len(dninumber[1]), sizes[3] - 1):
+            print(colors.GREEN + users[1][3], end=colors.reset)
+            for i in range(len(users[1][3]), sizes[3] - 1):
                 print(" ", end="")
             print("  ║")
         print("║", end="")
@@ -262,7 +257,7 @@ while execution:
             registerMenu()
         elif option == 2:
             os.system(command)
-            userlist(usercount, users, realnames, lastnames, dninumber)
+            userlist(usercount, users)
         elif option == 3:
             os.system(command)
             notes(usercount)
