@@ -10,6 +10,7 @@ def mainMenu():
     print("║                1-Registración                     ║")
     print("║                2-Listado                          ║")
     print("║                3-Notas                            ║")
+    print("║                4-Modificación                     ║")
     print("║                                                   ║")
     print("║                                                   ║")
     print("╚═══════════════════════════════════════════════════╝")

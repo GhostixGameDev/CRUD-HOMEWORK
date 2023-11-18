@@ -28,13 +28,13 @@ def notesMenu(usercount):
         else:
             os.system(command)
             print(colors.RED + "No existe ningun usuario con ese ID. ¿Ingresar la nota de vuelta?")
-            print(colors.BLUE + "1: " + colors.GREEN + "Sí. " + colors.RED + "2: " + colors.GREEN + "No. >:)")
+            print(colors.BLUE + "1: " + colors.GREEN + "Sí. " + colors.RED + "2: " + colors.GREEN + "No. >:)"+colors.reset)
             option = input()
-            if option == 1:
+            if option == "1":
                 notesMenu(usercount)
             else:
                 os.system(command)
     except ValueError:
-        print("El ID. Es un valor númerico. En 2 segundos volvera a empezar.")
+        print(colors.RED+"El ID. Es un valor númerico. En 2 segundos volvera a empezar."+colors.reset)
         time.sleep(2)
         notesMenu(usercount)

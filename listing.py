@@ -2,7 +2,7 @@ from miscelaneus import *
 import os
 import time
 
-def userlist(length, users, usercount):
+def userlist(length, users):
     if length>0:
         sizes=Sizes(length,users)
         totalsize = 0
@@ -42,7 +42,7 @@ def userlist(length, users, usercount):
             print(" ", end="")
         print(" ║")
         if length > 1:
-            for x in range(1, usercount+1):
+            for x in range(1, length+1):
                     autoSpacing(x,users,sizes)
         else:
             autoSpacing(1,users,sizes)
